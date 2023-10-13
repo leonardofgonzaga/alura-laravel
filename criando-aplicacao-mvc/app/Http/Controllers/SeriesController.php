@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
-class SeriesController 
+use Illuminate\Http\Request;
+
+class SeriesController extends Controller
 {
-    public function listarSeries()
+    public function index(Request $request) : string
     {
+        // return $request->get('id'); buscar o dado em qualquer lugar do request
+        // return redirect('https://www.google.com'); redirecionar
+
         $series = [
             'Punisher',
             'Lost',
@@ -20,6 +25,6 @@ class SeriesController
 
         $html .= '</ul>';
 
-        echo $html;
+        return $series;
     }
 }

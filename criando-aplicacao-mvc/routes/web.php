@@ -22,4 +22,4 @@ Route::get('/php', function () {
     phpinfo();
 });
 
-Route::get('/series', [SeriesController::class, 'listarSeries']);
+Route::get('/series', [SeriesController::class, 'index']);
