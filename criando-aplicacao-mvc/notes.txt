@@ -1,0 +1,11 @@
+### Components ###
+ 
+Criar um componente anônimo: php artisan make:component layout –view
+
+Caso a gente queira separar nosso componentes em pastas, como forms/input.blade.php, por exemplo, 
+podemos sem problemas. Na hora de utilizá-lo, vamos referenciá-lo como <x-forms.input>, usando o . como 
+separador. Assim podemos manter nossos componentes organizados.
+
+### XSS ###
+
+Usar filter_input() para limpar entrada de dados
