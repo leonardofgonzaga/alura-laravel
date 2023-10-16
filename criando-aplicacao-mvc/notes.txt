@@ -9,3 +9,19 @@ separador. Assim podemos manter nossos componentes organizados.
 ### XSS ###
 
 Usar filter_input() para limpar entrada de dados
+
+### Laravel Mix ###
+
+Instalar o node.js 
+
+Rodar na raiz do projeto npm install bootstrap
+
+Renomear ./resources/app.css para app.scss e adicionar linha: @import "~bootstrap/scss/bootstrap"
+
+Editar o arquivo ./webpack.mix.js e adicionar: .sass('resources/css/app.scss', 'public/css');
+
+Rodar comando npm run dev, irá baixar o plugin de sass (quando rodar a primeira vez)
+
+Rodar comando npm run dev novamente
+
+Adicionar ao href da tag link: {{ asset('css/app.css') }}
