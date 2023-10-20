@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Serie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SeriesController extends Controller
 {
@@ -11,11 +13,7 @@ class SeriesController extends Controller
         // return $request->get('id'); buscar o dado em qualquer lugar do request
         // return redirect('https://www.google.com'); redirecionar
 
-        $series = [
-            'Punisher',
-            'Lost',
-            'Grey\'s Anatomy'
-        ];
+        $series = Serie::query()->orderBy('nome')->get();
 
         $html = '<ul>';
 
@@ -26,4 +24,17 @@ class SeriesController extends Controller
     {
         return view('series.create');
     }
+
+    public function store(Request $request)
+    {
+        $nomeSerie = $request->input('nome');
+
+        $serie = new Serie();
+        $serie->nome = $nomeSerie;
+
+        $serie->save();
+
+        return redirect('/series');                
+    }
+
 }

@@ -1,4 +1,4 @@
-### Components ###
+########################## Components ##########################
  
 Criar um componente anônimo: php artisan make:component layout –view
 
@@ -6,11 +6,11 @@ Caso a gente queira separar nosso componentes em pastas, como forms/input.blade.
 podemos sem problemas. Na hora de utilizá-lo, vamos referenciá-lo como <x-forms.input>, usando o . como 
 separador. Assim podemos manter nossos componentes organizados.
 
-### XSS ###
+########################## XSS ##########################
 
 Usar filter_input() para limpar entrada de dados
 
-### Laravel Mix ###
+########################## Laravel Mix ##########################
 
 Instalar o node.js 
 
@@ -25,3 +25,12 @@ Rodar comando npm run dev, irá baixar o plugin de sass (quando rodar a primeira
 Rodar comando npm run dev novamente
 
 Adicionar ao href da tag link: {{ asset('css/app.css') }}
+
+########################## Migrations ##########################
+
+Rodar comando: php artisan make:migration <nome da migration>
+
+Editar arquivo da migration em ./database/migrations
+
+Rodar comando: php artisan migrate para criar as tabelas
+
