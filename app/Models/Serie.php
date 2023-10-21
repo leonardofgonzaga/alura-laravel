@@ -11,4 +11,5 @@ class Serie extends Model
 
     // protected $table = 'seriados'; configurar nome da tabela
     // public $timestamps = false; não preecher timestamps automaticamente
+    protected $fillable = ['nome'];
 }

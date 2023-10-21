@@ -27,12 +27,8 @@ class SeriesController extends Controller
 
     public function store(Request $request)
     {
-        $nomeSerie = $request->input('nome');
-
-        $serie = new Serie();
-        $serie->nome = $nomeSerie;
-
-        $serie->save();
+        Serie::create($request->all());
+        // Serie::create($request->only(['nome'])); Pegar campos especificos
 
         return redirect('/series');                
     }
