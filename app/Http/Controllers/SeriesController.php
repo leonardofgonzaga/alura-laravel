@@ -30,7 +30,7 @@ class SeriesController extends Controller
         Serie::create($request->all());
         // Serie::create($request->only(['nome'])); Pegar campos especificos
 
-        return redirect('/series');                
+        return to_route('series.index');                
     }
 
 }
