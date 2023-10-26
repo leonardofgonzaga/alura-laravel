@@ -15,7 +15,16 @@ class SeriesController extends Controller
 
         $series = Serie::query()->orderBy('nome')->get();
 
-        return view('series.index')->with('series', $series);
+        $mensagemSucesso = $request->session()->get('mensagem.sucesso');
+        // $mensagemSucesso = session('mensagem.sucesso'); Para buscar na sessão
+
+        // Limpar mensagem da sessão
+        $request->session()->forget('mensagem.sucesso');
+
+
+        return view('series.index')
+            ->with('series', $series)
+            ->with('mensagemSucesso', $mensagemSucesso);
     }
 
     public function create()
@@ -28,13 +37,24 @@ class SeriesController extends Controller
         Serie::create($request->all());
         // Serie::create($request->only(['nome'])); Pegar campos especificos
 
+        $request->session()->put('mensagem.sucesso', 'Série adicionada com sucesso');
+
         return to_route('series.index');                
     }
 
     public function destroy(Request $request)
     {
-        Serie::destroy($request->serie);
+        $result = Serie::destroy($request->series);
 
+        /* Adicionar mensagem a sessão */
+        $request->session()->put('mensagem.sucesso', 'Série removida com sucesso');
+
+        /* Adiciona mensagem na sessão e esquece automaticamente
+        $request->session()->flash('mensagem.sucesso', 'Série removida com sucesso');  */
+        
+        /* Adiciona mensagem na sessão
+        session(['mensagem.sucesso' => 'Série removida com sucesso']);  */
+       
         return to_route('series.index');
     }
 }
