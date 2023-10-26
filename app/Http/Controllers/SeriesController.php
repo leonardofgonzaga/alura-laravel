@@ -15,8 +15,6 @@ class SeriesController extends Controller
 
         $series = Serie::query()->orderBy('nome')->get();
 
-        $html = '<ul>';
-
         return view('series.index')->with('series', $series);
     }
 
@@ -33,4 +31,10 @@ class SeriesController extends Controller
         return to_route('series.index');                
     }
 
+    public function destroy(Request $request)
+    {
+        Serie::destroy($request->serie);
+
+        return to_route('series.index');
+    }
 }
