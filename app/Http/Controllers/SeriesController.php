@@ -37,9 +37,10 @@ class SeriesController extends Controller
         $serie = Serie::create($request->all());
         // Serie::create($request->only(['nome'])); Pegar campos especificos
 
-        $request->session()->flash('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
+        // $request->session()->flash('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
 
-        return to_route('series.index');                
+        return to_route('series.index')
+            ->with('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");                
     }
 
     public function destroy(Serie $series, Request $request)
@@ -48,12 +49,13 @@ class SeriesController extends Controller
         /* Adicionar mensagem a sessão */
         // $request->session()->put('mensagem.sucesso', 'Série removida com sucesso'); 
 
-        /* Adiciona mensagem na sessão e esquece automaticamente  */
-        $request->session()->flash('mensagem.sucesso', "Série {$series->nome} removida com sucesso");
+        /* Adiciona mensagem na sessão e esquece automaticamente  
+        $request->session()->flash('mensagem.sucesso', "Série {$series->nome} removida com sucesso");*/
         
         /* Adiciona mensagem na sessão
         session(['mensagem.sucesso' => 'Série removida com sucesso']);  */
        
-        return to_route('series.index');
+        return to_route('series.index')
+            ->with('mensagem.sucesso', "Série {$series->nome} removida com sucesso");
     }
 }
