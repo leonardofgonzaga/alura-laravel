@@ -34,3 +34,6 @@ Editar arquivo da migration em ./database/migrations
 
 Rodar comando: php artisan migrate para criar as tabelas
 
+########################## FormRequest ##########################
+
+Criar request: php artisan make:request <nome-request> 
