@@ -37,3 +37,13 @@ Rodar comando: php artisan migrate para criar as tabelas
 ########################## FormRequest ##########################
 
 Criar request: php artisan make:request <nome-request> 
+
+########################## Migrations ##########################
+
+Se todos os nossos valores forem padrão ou corretamente configurados, podemos usar também o método foreignIdFor (que existe desde o Laravel 8) que recebe por parâmetro o nome da model ao invés do nome da coluna. Um exemplo, nesse nosso caso, seria:
+
+$table->foreignIdFor(Serie::class)->constrained();
+
+Nesse caso nós acabaríamos tendo a coluna como serie_id ao invés de series_id. Podemos ainda passar um segundo parâmetro para esse método, ficando:
+
+$table->foreignIdFor(Serie::class, ‘series_id’)->constrained();

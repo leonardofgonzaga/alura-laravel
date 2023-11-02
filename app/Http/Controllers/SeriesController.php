@@ -14,7 +14,10 @@ class SeriesController extends Controller
         // return $request->get('id'); buscar o dado em qualquer lugar do request
         // return redirect('https://www.google.com'); redirecionar
 
-        $series = Serie::query()->orderBy('nome')->get();
+        $series = Serie::with(['seasons'])->get();
+        
+        /* Buscar séries já com as temporadas passando o relacionamento
+        $series = Serie::with(['seasons'])->get(); */
 
         $mensagemSucesso = $request->session()->get('mensagem.sucesso');
         // $mensagemSucesso = session('mensagem.sucesso'); Para buscar na sessão
