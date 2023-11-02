@@ -62,7 +62,13 @@ class SeriesController extends Controller
 
     public function edit(Serie $series)
     {
-        dd($series->seasons());
+        /*  
+            Para acessar a coleção
+            $series->seasons; 
+
+            Para acessar o relacionamento e modificar a query
+            $series->temporadas()->whereId()->get()
+        */
         return view('series.edit')->with('serie', $series);
     }
 
