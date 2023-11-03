@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SeriesRequest;
-use App\Models\Serie;
+use App\Models\Series;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +14,7 @@ class SeriesController extends Controller
         // return $request->get('id'); buscar o dado em qualquer lugar do request
         // return redirect('https://www.google.com'); redirecionar
 
-        $series = Serie::with(['seasons'])->get();
+        $series = Series::with(['seasons'])->get();
         
         /* Buscar séries já com as temporadas passando o relacionamento
         $series = Serie::with(['seasons'])->get(); */
@@ -38,7 +38,7 @@ class SeriesController extends Controller
 
     public function store(SeriesRequest $request)
     {
-        $serie = Serie::create($request->all());
+        $serie = Series::create($request->all());
         // Serie::create($request->only(['nome'])); Pegar campos especificos
 
         // $request->session()->flash('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
@@ -47,7 +47,7 @@ class SeriesController extends Controller
             ->with('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");                
     }
 
-    public function destroy(Serie $series, Request $request)
+    public function destroy(Series $series, Request $request)
     {
         $series->delete();
         /* Adicionar mensagem a sessão */
@@ -63,7 +63,7 @@ class SeriesController extends Controller
             ->with('mensagem.sucesso', "Série {$series->nome} removida com sucesso");
     }
 
-    public function edit(Serie $series)
+    public function edit(Series $series)
     {
         /*  
             Para acessar a coleção
@@ -75,7 +75,7 @@ class SeriesController extends Controller
         return view('series.edit')->with('serie', $series);
     }
 
-    public function update(Serie $series, SeriesRequest $request) 
+    public function update(Series $series, SeriesRequest $request) 
     {
         // $series->nome = $request->nome;
 

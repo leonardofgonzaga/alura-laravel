@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Serie extends Model
+class Series extends Model
 {
     use HasFactory;
 
     // protected $table = 'seriados'; configurar nome da tabela
     // public $timestamps = false; não preecher timestamps automaticamente
-    protected $fillable = ['nome'];
+    protected $fillable = ['name'];
     // protected $primaryKey = 'id';
     // protected $with = ['seasons']; Buscar séries já com as temporadas passando o relacionamento
 
@@ -25,7 +25,7 @@ class Serie extends Model
     protected static function booted()
     {
         self::addGlobalScope('ordered', function (Builder $queryBuilder) {
-            $queryBuilder->orderBy('nome');
+            $queryBuilder->orderBy('name');
         });
     }
 }
