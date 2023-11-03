@@ -39,6 +39,19 @@ class SeriesController extends Controller
     public function store(SeriesRequest $request)
     {
         $serie = Series::create($request->all());
+
+        for ($i = 1; $i <= $request->seasonQty; $i++) { 
+
+            $season = $serie->seasons()->create([
+                'number' => $i
+            ]);
+
+            for ($j = 1; $j <= $request->episodesPerSeason; $j++) { 
+                $season->episodes()->create([
+                    'number' => $j
+                ]);
+            }
+        }
         // Serie::create($request->only(['nome'])); Pegar campos especificos
 
         // $request->session()->flash('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
