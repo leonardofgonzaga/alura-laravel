@@ -17,7 +17,7 @@ class SeriesController extends Controller
         // return redirect('https://www.google.com'); redirecionar
 
         $series = Series::with(['seasons'])->get();
-        
+
         /* Buscar séries já com as temporadas passando o relacionamento
         $series = Serie::with(['seasons'])->get(); */
 
@@ -40,11 +40,15 @@ class SeriesController extends Controller
 
     public function store(SeriesRequest $request)
     {
-        $serie = Series::create($request->all());
+        $serie = null;
 
-        /* for ($i = 1; $i <= $request->seasonsQty; $i++) { 
+        DB::transaction(function () use ($request, &$serie) {
 
-            $season = $serie->seasons()->create([
+            $serie = Series::create($request->all());
+
+            /* for ($i = 1; $i <= $request->seasonsQty; $i++) { 
+
+                $season = $serie->seasons()->create([
                 'number' => $i
             ]);
 
@@ -52,40 +56,41 @@ class SeriesController extends Controller
                 $season->episodes()->create([
                     'number' => $j
                 ]);
-            }
-        } */
+                }
+            } */
 
-        $seasons = [];
-        for ($i = 1; $i < $request->seasonsQty; $i++) { 
-            
-            $seasons[] = [
-                'series_id' => $serie->id,
-                'number' => $i
-            ];
-        }
+            $seasons = [];
+            for ($i = 1; $i < $request->seasonsQty; $i++) {
 
-        Season::insert($seasons);
-
-        $episodes = [];
-        foreach ($serie->seasons as $season) {
-            
-            for ($j = 0; $j < $request->episodesPerSeason; $j++) { 
-                
-                $episodes[] = [
-                    'season_id' => $season->id,
-                    'number' => $j
+                $seasons[] = [
+                    'series_id' => $serie->id,
+                    'number' => $i
                 ];
             }
-        }
-        
-        Episode::insert($episodes);
 
+            Season::insert($seasons);
+
+            $episodes = [];
+            foreach ($serie->seasons as $season) {
+
+                for ($j = 0; $j < $request->episodesPerSeason; $j++) {
+
+                    $episodes[] = [
+                        'season_id' => $season->id,
+                        'number' => $j
+                    ];
+                }
+            }
+
+            Episode::insert($episodes);
+        }, 5); // attempts: número de tentativas, uma forma da lidar com deadlocks
+        
         // Serie::create($request->only(['nome'])); Pegar campos especificos
 
         // $request->session()->flash('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
 
         return to_route('series.index')
-            ->with('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");                
+            ->with('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
     }
 
     public function destroy(Series $series, Request $request)
@@ -96,10 +101,10 @@ class SeriesController extends Controller
 
         /* Adiciona mensagem na sessão e esquece automaticamente  
         $request->session()->flash('mensagem.sucesso', "Série {$series->nome} removida com sucesso");*/
-        
+
         /* Adiciona mensagem na sessão
         session(['mensagem.sucesso' => 'Série removida com sucesso']);  */
-       
+
         return to_route('series.index')
             ->with('mensagem.sucesso', "Série {$series->nome} removida com sucesso");
     }
@@ -116,12 +121,12 @@ class SeriesController extends Controller
         return view('series.edit')->with('serie', $series);
     }
 
-    public function update(Series $series, SeriesRequest $request) 
+    public function update(Series $series, SeriesRequest $request)
     {
         // $series->nome = $request->nome;
 
         // fill() utiliza o atributi fillable para adicionar apenas o necessário
-        $series->fill($request->all()); 
+        $series->fill($request->all());
         $series->save();
 
         return to_route('series.index')
