@@ -3,6 +3,12 @@
         @csrf
 
         <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
+                placeholder="">
+        </div>
+
+        <div class="form-group">
             <label for="email">E-mail</label>
             <input type="text" class="form-control" name="email" id="email" aria-describedby="helpId"
                 placeholder="">
@@ -15,11 +21,7 @@
         </div>
         
         <button class="btn btn-primary mt-3">
-            Entrar
-        </button>
-
-        <a href="{{ route('users.create') }}" class="btn btn-secondary mt-3">
             Registrar
-        </a>
+        </button>
     </form>
 </x-layout>
