@@ -47,3 +47,7 @@ $table->foreignIdFor(Serie::class)->constrained();
 Nesse caso nós acabaríamos tendo a coluna como serie_id ao invés de series_id. Podemos ainda passar um segundo parâmetro para esse método, ficando:
 
 $table->foreignIdFor(Serie::class, ‘series_id’)->constrained();
+
+########################## Vite ##########################
+
+https://cursos.alura.com.br/forum/topico-dropdown-nao-abre-para-fazer-o-logout-breeze-344636
