@@ -6,6 +6,7 @@ use App\Http\Middleware\Autenticador;
 use App\Http\Requests\SeriesRequest;
 use App\Mail\SeriesCreated;
 use App\Models\Series;
+use App\Models\User;
 use App\Repositories\EloquentSeriesRepository;
 use App\Repositories\SeriesRepository;
 use Illuminate\Auth\AuthenticationException;
@@ -60,12 +61,21 @@ class SeriesController extends Controller
 
         // $request->session()->flash('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
 
-        $email = new SeriesCreated(
-            $serie->name,
-            $serie->id,
-            $request->seasonsQty,
-            $request->episodesPerSeason
-        );
+        $userList = User::all();
+
+        foreach ($userList as $user) {
+
+            $email = new SeriesCreated(
+                $serie->name,
+                $serie->id,
+                $request->seasonsQty,
+                $request->episodesPerSeason
+            );
+
+            Mail::to($user)->send($email);
+
+            sleep(2);
+        }
 
         Mail::to($request->user())->send($email);
 
