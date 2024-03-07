@@ -73,11 +73,10 @@ class SeriesController extends Controller
             );
 
             Mail::to($user)->send($email);
-
             sleep(2);
         }
 
-        Mail::to($request->user())->send($email);
+        Mail::to($request->user())->queue($email);
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
