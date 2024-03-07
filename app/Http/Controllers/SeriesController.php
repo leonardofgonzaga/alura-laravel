@@ -73,7 +73,6 @@ class SeriesController extends Controller
             );
 
             Mail::to($user)->send($email);
-            sleep(2);
         }
 
         Mail::to($request->user())->queue($email);
