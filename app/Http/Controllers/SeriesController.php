@@ -72,10 +72,8 @@ class SeriesController extends Controller
                 $request->episodesPerSeason
             );
 
-            Mail::to($user)->send($email);
-        }
-
-        Mail::to($request->user())->queue($email);
+            Mail::to($request->user())->queue($email);
+        }        
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
