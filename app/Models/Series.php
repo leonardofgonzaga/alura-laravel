@@ -12,7 +12,7 @@ class Series extends Model
 
     // protected $table = 'seriados'; configurar nome da tabela
     // public $timestamps = false; não preecher timestamps automaticamente
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'cover'];
     // protected $primaryKey = 'id';
     // protected $with = ['seasons']; Buscar séries já com as temporadas passando o relacionamento
 
