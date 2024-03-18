@@ -50,7 +50,8 @@ class SeriesController extends Controller
 
     public function store(SeriesRequest $request)
     {
-        dd($request->file('cover'));
+        $coverPath = $request->file('cover')
+            ->store('series_cover', 'public');
         $serie = $this->repository->add($request);
 
         // Serie::create($request->only(['nome'])); Pegar campos especificos
