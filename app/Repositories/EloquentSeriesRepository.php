@@ -16,7 +16,7 @@ class EloquentSeriesRepository implements SeriesRepository
 
             $serie = Series::create([
                 "name" => $request->name,
-                'cover' => $request->cover_path
+                'cover' => $request->coverPath
             ]);
 
             /* for ($i = 1; $i <= $request->seasonsQty; $i++) { 

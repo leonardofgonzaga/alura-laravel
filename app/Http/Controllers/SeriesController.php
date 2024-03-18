@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\SeriesCreated as EventsSeriesCreated;
-use App\Http\Middleware\Autenticador;
-use App\Http\Requests\SeriesRequest;
 use App\Models\Series;
-use App\Repositories\SeriesRepository;
 use Illuminate\Http\Request;
+use App\Http\Requests\SeriesRequest;
+use App\Http\Middleware\Autenticador;
+use App\Repositories\SeriesRepository;
+use Illuminate\Support\Facades\Storage;
+use App\Events\SeriesCreated as EventsSeriesCreated;
 
 class SeriesController extends Controller
 {
@@ -50,8 +51,9 @@ class SeriesController extends Controller
 
     public function store(SeriesRequest $request)
     {
-        $coverPath = $request->file('cover')
-            ->store('series_cover', 'public');
+        $coverPath = $request->file('cover')->store('series_cover', 'public');
+        $request->coverPath = $coverPath;
+        
         $serie = $this->repository->add($request);
 
         // Serie::create($request->only(['nome'])); Pegar campos especificos
@@ -71,6 +73,7 @@ class SeriesController extends Controller
     public function destroy(Series $series, Request $request)
     {
         $series->delete();
+        
         /* Adicionar mensagem a sessão */
         // $request->session()->put('mensagem.sucesso', 'Série removida com sucesso'); 
 
