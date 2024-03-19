@@ -9,6 +9,7 @@ use App\Http\Middleware\Autenticador;
 use App\Repositories\SeriesRepository;
 use Illuminate\Support\Facades\Storage;
 use App\Events\SeriesCreated as EventsSeriesCreated;
+use App\Jobs\DeleteSeriesCover;
 
 class SeriesController extends Controller
 {
@@ -73,6 +74,8 @@ class SeriesController extends Controller
     public function destroy(Series $series, Request $request)
     {
         $series->delete();
+
+        DeleteSeriesCover::dispatch($series->cover);
         
         /* Adicionar mensagem a sessão */
         // $request->session()->put('mensagem.sucesso', 'Série removida com sucesso'); 
