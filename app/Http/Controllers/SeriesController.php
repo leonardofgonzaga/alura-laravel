@@ -78,7 +78,7 @@ class SeriesController extends Controller
     {
         $series->delete();
 
-        DeleteSeriesCover::dispatch($series->cover);
+        if (!is_null($series->cover)) DeleteSeriesCover::dispatch($series->cover);
         
         /* Adicionar mensagem a sessão */
         // $request->session()->put('mensagem.sucesso', 'Série removida com sucesso'); 

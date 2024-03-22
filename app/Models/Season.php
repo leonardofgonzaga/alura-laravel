@@ -13,7 +13,7 @@ class Season extends Model
     public function series() 
     {
         // Criação de relacionamento
-        return $this->belongsTo(Serie::class);
+        return $this->belongsTo(Series::class);
     }
 
     public function episodes()
