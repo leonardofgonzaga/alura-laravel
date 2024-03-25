@@ -33,7 +33,7 @@ class EloquentSeriesRepository implements SeriesRepository
         } */
 
             $seasons = [];
-            for ($i = 1; $i < $request->seasonsQty; $i++) {
+            for ($i = 1; $i <= $request->seasonsQty; $i++) {
 
                 $seasons[] = [
                     'series_id' => $serie->id,
@@ -46,7 +46,7 @@ class EloquentSeriesRepository implements SeriesRepository
             $episodes = [];
             foreach ($serie->seasons as $season) {
 
-                for ($j = 0; $j < $request->episodesPerSeason; $j++) {
+                for ($j = 1; $j <= $request->episodesPerSeason; $j++) {
 
                     $episodes[] = [
                         'season_id' => $season->id,
