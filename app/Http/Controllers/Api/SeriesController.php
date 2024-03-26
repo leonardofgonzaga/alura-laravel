@@ -12,4 +12,10 @@ class SeriesController extends Controller
     {
         return Series::all();
     }  
+
+    public function store(Request $request) 
+    {
+        return response()
+            ->json(Series::create($request->all()), 201);
+    }
 }
