@@ -21,16 +21,16 @@ class EloquentSeriesRepository implements SeriesRepository
 
             /* for ($i = 1; $i <= $request->seasonsQty; $i++) { 
 
-            $season = $serie->seasons()->create([
-            'number' => $i
-        ]);
-
-        for ($j = 1; $j <= $request->episodesPerSeason; $j++) { 
-            $season->episodes()->create([
-                'number' => $j
+                $season = $serie->seasons()->create([
+                'number' => $i
             ]);
-            }
-        } */
+
+            for ($j = 1; $j <= $request->episodesPerSeason; $j++) { 
+                $season->episodes()->create([
+                    'number' => $j
+                ]);
+                }
+            } */
 
             $seasons = [];
             for ($i = 1; $i <= $request->seasonsQty; $i++) {
